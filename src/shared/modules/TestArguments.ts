@@ -1,11 +1,11 @@
-interface tempObj {
+export interface tempObj {
   a : string
   b : string
 }
 
 //* arguemnts의 활용은 any타입으로 명시되어 있다. 
 //* 사용하면 안될듯함 :)                              
-function ForOfArguments(...args : tempObj[]){
+export function ForOfArguments(...args : tempObj[]){
   const arrArgs = arguments
 
   for(const obj of arguments){
