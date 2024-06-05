@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+  const apiKey = "xEQr4RvaAtQxZqJv4f0gD1b3EspzgmsJXStBIsmkseHiZ0YjIlhWNN5gkrdEJdkz2o0kxa0hfvSiqCMqoV5JiA%3D%3D";
+  const apiPath = `http://apis.data.go.kr/6300000/eventDataService/eventDataListJson?serviceKey=${apiKey}&numOfRows=10&pageNo=1`;
+
+  const xhr = new XMLHttpRequest();
+  console.dir("데이터 받기 전 조회 : " + xhr);
+  xhr.open("GET", apiPath, true);
+
+  xhr.addEventListener("load", () => {
+
+    console.log("--Load--");
+
+    if(xhr.status === 200){
+      const result = JSON.parse(xhr.responseText);
+      
+      console.dir(typeof(result));
+      console.dir(result);
+      console.dir(result.msgBody);
+      console.log(result.msgBody[0]);
+      console.log(result.msgBody[0].title);      
+
+      const root = document.getElementById("root");
+      let lists = [];
+
+      result.msgBody.forEach(item => {
+        console.log(item.title);
+        lists.push(`<li>${item.title}</li>`);
+     });
+
+     console.log(lists.join(''));
+     root.innerHTML = `<ul>${lists.join('')}</ul>`;
+    }
+  })
+
+  xhr.send();
+
+</script>
+</html>
